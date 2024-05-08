@@ -1,4 +1,6 @@
 import { hasKey } from '../haskey.js';
+import { log } from '../log.js';
+import { messageMap } from './message/text-map.js';
 
 // ポストバックイベントが飛んできた時
 export const postbackHandler = (event) => {
@@ -15,10 +17,11 @@ export const postbackHandler = (event) => {
     // 存在しない場合
   } else {
     // 返信するメッセージを作成
-    message = {
-      type: 'text',
-      text: `ポストバックデータを受け取りました！\ndata: ${postbackData}`,
-    };
+    const searchParams = new URLSearchParams(postbackData);
+    const entries = searchParams.entries();
+    const data = Object.fromEntries(entries);
+    const { action, day } = data;
+    message = messageMap[action][day]();
   }
   // 関数の呼び出し元（bot.jsのindex）に返信するメッセージを返す
   return message;

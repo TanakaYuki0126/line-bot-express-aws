@@ -1,13 +1,15 @@
 // ユーザーのプロフィールを取得する関数
-const getUserProfile = (event, client) => client.getProfile(event.source.userId);
+const getUserProfile = (event, client) =>
+  client.getProfile(event.source.userId);
 
 // 受け取ったメッセージと返信するメッセージ(を返す関数)をマッピング
 export const messageMap = {
   こんにちは: () => ({
     type: 'text',
-    text: 'Hello, world',
+    text: 'こんにちは/世界',
   }),
-  複数メッセージ: () => ([
+  おはよう: () => ({ type: 'text', text: 'Good Morning!' }),
+  複数メッセージ: () => [
     {
       type: 'text',
       text: 'Hello, user',
@@ -16,7 +18,29 @@ export const messageMap = {
       type: 'text',
       text: 'May I help you?',
     },
-  ]),
+  ],
+  予定: () => ({
+    type: 'text',
+    text: '曜日を選択してね',
+    quickReply: {
+      items: [
+        {
+          type: 'action',
+          action: {
+            type: 'postback',
+            label: '月曜日',
+            data: '?action=plan&day=monday',
+          },
+        },
+      ],
+    },
+  }),
+  plan: {
+    monday: () => ({
+      type: 'text',
+      text: 'MTG',
+    }),
+  },
   クイックリプライ: () => ({
     type: 'text',
     text: 'クイックリプライ（以下のアクションはクイックリプライ専用で、他のメッセージタイプでは使用できません）',
@@ -64,8 +88,10 @@ export const messageMap = {
   }),
   動画メッセージ: () => ({
     type: 'video',
-    originalContentUrl: 'https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/demo.mp4?raw=true',
-    previewImageUrl: 'https://raw.githubusercontent.com/shinbunbun/Hands-on-LINEBOT/master/media/thumbnail.jpg?raw=true',
+    originalContentUrl:
+      'https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/demo.mp4?raw=true',
+    previewImageUrl:
+      'https://raw.githubusercontent.com/shinbunbun/Hands-on-LINEBOT/master/media/thumbnail.jpg?raw=true',
   }),
   位置情報メッセージ: () => ({
     type: 'location',
@@ -74,7 +100,7 @@ export const messageMap = {
     latitude: 35.687574,
     longitude: 139.72922,
   }),
-  イメージマップメッセージ: () => ([
+  イメージマップメッセージ: () => [
     {
       type: 'imagemap',
       baseUrl:
@@ -121,7 +147,7 @@ export const messageMap = {
       type: 'text',
       text: '画像の色々なところをタップしてみよう！',
     },
-  ]),
+  ],
   ボタンテンプレート: () => ({
     type: 'template',
     altText: 'ボタンテンプレート',
@@ -216,8 +242,7 @@ export const messageMap = {
           ],
         },
         {
-          thumbnailImageUrl:
-            'https://shinbunbun.info/images/photos/10.jpeg',
+          thumbnailImageUrl: 'https://shinbunbun.info/images/photos/10.jpeg',
           imageBackgroundColor: '#FFFFFF',
           title: 'タイトル2',
           text: '説明2',
