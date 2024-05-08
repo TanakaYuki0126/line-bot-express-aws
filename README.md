@@ -7,3 +7,4 @@ https://github.com/shinbunbun/Hands-on-LINEBOT-impress
 - npm start
 - npm run ngrok
 - `${forwardingのURL}/webhook`をwebhook URLに指定
+- docker compose up
