@@ -1,5 +1,4 @@
 import { hasKey } from '../haskey.js';
-import { log } from '../log.js';
 import { messageMap } from './message/text-map.js';
 
 // ポストバックイベントが飛んできた時

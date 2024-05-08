@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx nodemon src/express/server.js",
-    "ngrok": "npx ngrok http 3000"
+    "ngrok": "npx ngrok http --domain=adjusted-wealthy-minnow.ngrok-free.app 3000"
   },
   "keywords": [],
   "author": "",
